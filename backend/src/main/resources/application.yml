@@ -23,11 +23,11 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
-  logging:
-    level:
-      root: INFO
-      com.gumayoshi.devoluciones: INFO
+logging:
+  level:
+    root: INFO
+    com.gumayoshi.devoluciones: INFO
 
-  app:
-    carga:
-      max-filas: ${CARGA_MAX_FILAS:50000}
+app:
+  carga:
+    max-filas: ${CARGA_MAX_FILAS:50000}

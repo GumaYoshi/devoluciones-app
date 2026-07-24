@@ -248,7 +248,10 @@ public class CargaMasivaServiceImpl implements CargaMasivaService {
 
         if (columnas.length != CANTIDAD_COLUMNAS_ESPERADA) {
             throw new IllegalArgumentException(
-                    "La fila debe contener exactamente 6 columnas"
+                    "La fila debe contener exactamente "
+                            + CANTIDAD_COLUMNAS_ESPERADA
+                            + " columnas, pero contiene "
+                            + columnas.length
             );
         }
 
