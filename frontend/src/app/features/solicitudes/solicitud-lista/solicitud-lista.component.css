@@ -1,0 +1,84 @@
+.encabezado-pagina p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.filtros {
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: 16px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+}
+
+.estado {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.estado-borrador {
+  color: #475569;
+  background: #e2e8f0;
+}
+
+.estado-en_revision {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.estado-aprobada {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.estado-rechazada,
+.estado-anulada {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.estado-pagada {
+  color: #1e40af;
+  background: #dbeafe;
+}
+
+.acciones {
+  white-space: nowrap;
+}
+
+.enlace {
+  margin-right: 12px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sin-datos {
+  padding: 30px;
+  text-align: center;
+  color: #64748b;
+}
+
+@media (max-width: 700px) {
+  .filtros {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,139 @@
+<section>
+  <div class="encabezado-pagina">
+    <div>
+      <h1>Solicitudes</h1>
+      <p>Gestión de devoluciones registradas</p>
+    </div>
+
+    <a
+      routerLink="/solicitudes/nueva"
+      class="boton boton-primario"
+    >
+      + Nueva solicitud
+    </a>
+  </div>
+
+  <div
+    *ngIf="mensajeError"
+    class="alerta alerta-error"
+  >
+    {{ mensajeError }}
+  </div>
+
+  <div class="tarjeta filtros">
+    <div class="campo">
+      <label for="rut">RUT</label>
+
+      <input
+        id="rut"
+        type="text"
+        [(ngModel)]="filtroRut"
+        (ngModelChange)="aplicarFiltros()"
+        placeholder="Buscar por RUT"
+      >
+    </div>
+
+    <div class="campo">
+      <label for="estado">Estado</label>
+
+      <select
+        id="estado"
+        [(ngModel)]="filtroEstado"
+        (ngModelChange)="aplicarFiltros()"
+      >
+        <option value="">Todos</option>
+        <option value="BORRADOR">BORRADOR</option>
+        <option value="EN_REVISION">EN REVISIÓN</option>
+        <option value="APROBADA">APROBADA</option>
+        <option value="RECHAZADA">RECHAZADA</option>
+        <option value="PAGADA">PAGADA</option>
+        <option value="ANULADA">ANULADA</option>
+      </select>
+    </div>
+
+    <button
+      type="button"
+      class="boton boton-secundario"
+      (click)="limpiarFiltros()"
+    >
+      Limpiar
+    </button>
+  </div>
+
+  <div class="tarjeta">
+    <p *ngIf="cargando">
+      Cargando solicitudes...
+    </p>
+
+    <p
+      *ngIf="!cargando && solicitudesFiltradas.length === 0"
+      class="sin-datos"
+    >
+      No existen solicitudes para mostrar.
+    </p>
+
+    <div
+      *ngIf="!cargando && solicitudesFiltradas.length > 0"
+      class="tabla-contenedor"
+    >
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Folio</th>
+            <th>RUT</th>
+            <th>Cliente</th>
+            <th>Monto</th>
+            <th>Origen</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let solicitud of solicitudesFiltradas">
+            <td>
+              <strong>{{ solicitud.folio }}</strong>
+            </td>
+
+            <td>{{ solicitud.rutCliente }}</td>
+            <td>{{ solicitud.nombreCliente }}</td>
+            <td>{{ formatearMonto(solicitud.monto) }}</td>
+            <td>{{ solicitud.origen }}</td>
+
+            <td>
+              <span [class]="claseEstado(solicitud.estado)">
+                {{ solicitud.estado }}
+              </span>
+            </td>
+
+            <td>
+              {{ solicitud.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+
+            <td class="acciones">
+              <a
+                [routerLink]="['/solicitudes', solicitud.id]"
+                class="enlace"
+              >
+                Ver
+              </a>
+
+              <a
+                *ngIf="solicitud.estado === 'BORRADOR'"
+                [routerLink]="[
+                  '/solicitudes',
+                  solicitud.id,
+                  'editar'
+                ]"
+                class="enlace"
+              >
+                Editar
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+<section>
+  <div class="encabezado-pagina">
+    <div>
+      <h1>Carga masiva</h1>
+      <p>Procesamiento de solicitudes desde CSV</p>
+    </div>
+  </div>
+
+  <div
+    *ngIf="mensajeError"
+    class="alerta alerta-error"
+  >
+    {{ mensajeError }}
+  </div>
+
+  <article class="tarjeta carga">
+    <label for="archivo">
+      Archivo CSV separado por punto y coma
+    </label>
+
+    <input
+      id="archivo"
+      type="file"
+      accept=".csv,text/csv"
+      (change)="seleccionarArchivo($event)"
+    >
+
+    <p *ngIf="archivo">
+      Archivo seleccionado:
+      <strong>{{ archivo.name }}</strong>
+    </p>
+
+    <button
+      type="button"
+      class="boton boton-primario"
+      [disabled]="!archivo || cargando"
+      (click)="subirArchivo()"
+    >
+      {{ cargando ? 'Procesando...' : 'Procesar archivo' }}
+    </button>
+  </article>
+
+  <article
+    *ngIf="carga"
+    class="tarjeta resumen"
+  >
+    <h2>Resultado de la carga</h2>
+
+    <div class="indicadores">
+      <div>
+        <span>Total</span>
+        <strong>{{ carga.totalRegistros }}</strong>
+      </div>
+
+      <div>
+        <span>Exitosos</span>
+        <strong>{{ carga.registrosExitosos }}</strong>
+      </div>
+
+      <div>
+        <span>Con error</span>
+        <strong>{{ carga.registrosConError }}</strong>
+      </div>
+
+      <div>
+        <span>Estado</span>
+        <strong>{{ carga.estado }}</strong>
+      </div>
+    </div>
+  </article>
+
+  <article
+    *ngIf="errores.length > 0"
+    class="tarjeta errores"
+  >
+    <h2>Errores por fila</h2>
+
+    <div class="tabla-contenedor">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Fila</th>
+            <th>Contenido</th>
+            <th>Motivo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let error of errores">
+            <td>{{ error.numeroFila }}</td>
+            <td>{{ error.contenidoFila }}</td>
+            <td>{{ error.mensajeError }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>

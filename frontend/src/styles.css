@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: #172033;
+  background: #f1f5f9;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3 {
+  color: #0f172a;
+}
+
+.tarjeta {
+  padding: 24px;
+  background: white;
+  border: 1px solid #dce3eb;
+  border-radius: 10px;
+}
+
+.encabezado-pagina {
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.encabezado-pagina h1 {
+  margin: 0;
+}
+
+.boton {
+  display: inline-block;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 7px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.boton-primario {
+  color: white;
+  background: #2563eb;
+}
+
+.boton-secundario {
+  color: #1e293b;
+  background: #e2e8f0;
+}
+
+.boton-peligro {
+  color: white;
+  background: #dc2626;
+}
+
+.boton-exito {
+  color: white;
+  background: #15803d;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla th {
+  background: #f8fafc;
+}
+
+.alerta {
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border-radius: 7px;
+}
+
+.alerta-error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+}
+
+.alerta-exito {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+}

@@ -1,0 +1,100 @@
+.login-contenedor {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-tarjeta {
+  width: min(420px, 100%);
+  padding: 32px;
+  background: white;
+  border: 1px solid #dce3eb;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.encabezado {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.encabezado h1 {
+  margin: 0 0 8px;
+}
+
+.encabezado p {
+  margin: 0;
+  color: #64748b;
+}
+
+.campo {
+  margin-bottom: 18px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.campo input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.campo input:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #2563eb;
+}
+
+.error-campo {
+  display: block;
+  margin-top: 5px;
+  color: #b91c1c;
+}
+
+.alerta {
+  padding: 11px 12px;
+  margin-bottom: 18px;
+  border-radius: 7px;
+}
+
+.alerta-error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+}
+
+.boton {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.boton-primario {
+  color: white;
+  background: #2563eb;
+}
+
+.boton-completo {
+  width: 100%;
+}
+
+.usuarios-prueba {
+  margin-top: 24px;
+  padding: 14px;
+  background: #f8fafc;
+  border-radius: 7px;
+  font-size: 14px;
+}
+
+.usuarios-prueba p {
+  margin: 8px 0 0;
+}

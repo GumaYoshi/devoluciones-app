@@ -1,0 +1,265 @@
+<section>
+  <div class="encabezado-pagina">
+    <div>
+      <h1>
+        {{ editando ? 'Editar solicitud' : 'Nueva solicitud' }}
+      </h1>
+
+      <p>Complete los datos requeridos</p>
+    </div>
+
+    <a
+      routerLink="/solicitudes"
+      class="boton boton-secundario"
+    >
+      Volver
+    </a>
+  </div>
+
+  <div
+    *ngIf="mensajeError"
+    class="alerta alerta-error"
+  >
+    {{ mensajeError }}
+  </div>
+
+  <form
+    class="tarjeta formulario"
+    [formGroup]="formulario"
+    (ngSubmit)="guardar()"
+  >
+    <div class="campo">
+      <label for="folio">Folio</label>
+
+      <input
+        id="folio"
+        type="text"
+        formControlName="folio"
+        placeholder="DEV-2026-000001"
+      >
+
+      <small
+        *ngIf="
+          formulario.controls.folio.touched &&
+          formulario.controls.folio.hasError('required')
+        "
+      >
+        El folio es obligatorio.
+      </small>
+
+      <small
+        *ngIf="
+          formulario.controls.folio.touched &&
+          formulario.controls.folio.hasError('pattern')
+        "
+      >
+        Formato requerido: DEV-AAAA-NNNNNN.
+      </small>
+
+      <small *ngIf="erroresCampos['folio']">
+        {{ erroresCampos['folio'] }}
+      </small>
+    </div>
+
+    <div class="campo">
+      <label for="rutCliente">RUT cliente</label>
+
+      <input
+        id="rutCliente"
+        type="text"
+        formControlName="rutCliente"
+        placeholder="12345678-5"
+      >
+
+      <small
+        *ngIf="
+          formulario.controls.rutCliente.touched &&
+          formulario.controls.rutCliente.hasError('required')
+        "
+      >
+        El RUT es obligatorio.
+      </small>
+
+      <small
+        *ngIf="
+          formulario.controls.rutCliente.touched &&
+          formulario.controls.rutCliente.hasError('rutInvalido')
+        "
+      >
+        El RUT ingresado no es válido.
+      </small>
+
+      <small *ngIf="erroresCampos['rutCliente']">
+        {{ erroresCampos['rutCliente'] }}
+      </small>
+    </div>
+
+    <div class="campo campo-ancho">
+      <label for="nombreCliente">Nombre cliente</label>
+
+      <input
+        id="nombreCliente"
+        type="text"
+        formControlName="nombreCliente"
+      >
+
+      <small
+        *ngIf="
+          formulario.controls.nombreCliente.touched &&
+          formulario.controls.nombreCliente.hasError('required')
+        "
+      >
+        El nombre del cliente es obligatorio.
+      </small>
+
+      <small *ngIf="erroresCampos['nombreCliente']">
+        {{ erroresCampos['nombreCliente'] }}
+      </small>
+    </div>
+
+    <div class="campo">
+      <label for="monto">Monto</label>
+
+      <input
+        id="monto"
+        type="number"
+        formControlName="monto"
+        min="0.01"
+        max="10000000"
+      >
+
+      <small
+        *ngIf="
+          formulario.controls.monto.touched &&
+          formulario.controls.monto.hasError('required')
+        "
+      >
+        El monto es obligatorio.
+      </small>
+
+      <small
+        *ngIf="
+          formulario.controls.monto.touched &&
+          formulario.controls.monto.hasError('min')
+        "
+      >
+        El monto debe ser mayor que cero.
+      </small>
+
+      <small
+        *ngIf="
+          formulario.controls.monto.touched &&
+          formulario.controls.monto.hasError('max')
+        "
+      >
+        El monto no puede superar los 10.000.000 CLP.
+      </small>
+
+      <small *ngIf="erroresCampos['monto']">
+        {{ erroresCampos['monto'] }}
+      </small>
+    </div>
+
+    <div class="campo">
+      <label for="moneda">Moneda</label>
+
+      <input
+        id="moneda"
+        type="text"
+        formControlName="moneda"
+        readonly
+      >
+
+      <small *ngIf="erroresCampos['moneda']">
+        {{ erroresCampos['moneda'] }}
+      </small>
+    </div>
+
+    <div class="campo">
+      <label for="bancoDestino">Banco destino</label>
+
+      <input
+        id="bancoDestino"
+        type="text"
+        formControlName="bancoDestino"
+      >
+
+      <small
+        *ngIf="
+          formulario.controls.bancoDestino.touched &&
+          formulario.controls.bancoDestino.hasError('required')
+        "
+      >
+        El banco destino es obligatorio.
+      </small>
+
+      <small *ngIf="erroresCampos['bancoDestino']">
+        {{ erroresCampos['bancoDestino'] }}
+      </small>
+    </div>
+
+    <div class="campo">
+      <label for="cuentaDestino">Cuenta destino</label>
+
+      <input
+        id="cuentaDestino"
+        type="text"
+        formControlName="cuentaDestino"
+      >
+
+      <small
+        *ngIf="
+          formulario.controls.cuentaDestino.touched &&
+          formulario.controls.cuentaDestino.hasError('required')
+        "
+      >
+        La cuenta destino es obligatoria.
+      </small>
+
+      <small *ngIf="erroresCampos['cuentaDestino']">
+        {{ erroresCampos['cuentaDestino'] }}
+      </small>
+    </div>
+
+    <div class="campo campo-ancho">
+      <label for="referenciaBanco">Referencia bancaria</label>
+
+      <input
+        id="referenciaBanco"
+        type="text"
+        formControlName="referenciaBanco"
+        placeholder="REF-2026-000001"
+      >
+
+      <small
+        *ngIf="
+          formulario.controls.referenciaBanco.touched &&
+          formulario.controls.referenciaBanco.hasError('required')
+        "
+      >
+        La referencia bancaria es obligatoria.
+      </small>
+
+      <small *ngIf="erroresCampos['referenciaBanco']">
+        {{ erroresCampos['referenciaBanco'] }}
+      </small>
+    </div>
+
+    <div class="acciones-formulario campo-ancho">
+      <a
+        routerLink="/solicitudes"
+        class="boton boton-secundario"
+      >
+        Cancelar
+      </a>
+
+      <button
+        type="submit"
+        class="boton boton-primario"
+        [disabled]="guardando"
+      >
+        {{ guardando ? 'Guardando...' : 'Guardar solicitud' }}
+      </button>
+    </div>
+  </form>
+</section>

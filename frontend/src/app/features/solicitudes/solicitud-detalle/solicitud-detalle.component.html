@@ -1,0 +1,225 @@
+<section *ngIf="!cargando && solicitud as s">
+  <div class="encabezado-pagina">
+    <div>
+      <h1>{{ s.folio }}</h1>
+      <p>Detalle de solicitud</p>
+    </div>
+
+    <div class="acciones-superiores">
+      <a
+        *ngIf="s.estado === 'BORRADOR'"
+        [routerLink]="[
+          '/solicitudes',
+          s.id,
+          'editar'
+        ]"
+        class="boton boton-secundario"
+      >
+        Editar
+      </a>
+
+      <a
+        routerLink="/solicitudes"
+        class="boton boton-secundario"
+      >
+        Volver
+      </a>
+    </div>
+  </div>
+
+  <div
+    *ngIf="mensajeError"
+    class="alerta alerta-error"
+  >
+    {{ mensajeError }}
+  </div>
+
+  <div class="grid">
+    <article class="tarjeta">
+      <h2>Datos generales</h2>
+
+      <dl class="datos">
+        <div>
+          <dt>Estado</dt>
+          <dd>{{ s.estado }}</dd>
+        </div>
+
+        <div>
+          <dt>Origen</dt>
+          <dd>{{ s.origen }}</dd>
+        </div>
+
+        <div>
+          <dt>RUT</dt>
+          <dd>{{ s.rutCliente }}</dd>
+        </div>
+
+        <div>
+          <dt>Cliente</dt>
+          <dd>{{ s.nombreCliente }}</dd>
+        </div>
+
+        <div>
+          <dt>Monto</dt>
+          <dd>{{ formatearMonto(s.monto) }}</dd>
+        </div>
+
+        <div>
+          <dt>Banco</dt>
+          <dd>{{ s.bancoDestino }}</dd>
+        </div>
+
+        <div>
+          <dt>Cuenta</dt>
+          <dd>{{ s.cuentaDestino }}</dd>
+        </div>
+
+        <div>
+          <dt>Referencia</dt>
+          <dd>{{ s.referenciaBanco }}</dd>
+        </div>
+
+        <div>
+          <dt>Creada por</dt>
+          <dd>{{ s.creadaPor }}</dd>
+        </div>
+
+        <div>
+          <dt>Fecha creación</dt>
+          <dd>
+            {{ s.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}
+          </dd>
+        </div>
+      </dl>
+    </article>
+
+    <article class="tarjeta">
+      <h2>Acciones disponibles</h2>
+
+      <div
+        *ngIf="
+          puedeEnviar() ||
+          puedeAnular() ||
+          puedeAprobarORechazar() ||
+          puedePagar() ||
+          puedeReabrir()
+        "
+      >
+        <label for="comentario">
+          Comentario o motivo
+        </label>
+
+        <textarea
+          id="comentario"
+          [(ngModel)]="comentario"
+          rows="4"
+          placeholder="Ingrese un comentario"
+        ></textarea>
+
+        <div class="acciones-estado">
+          <button
+            *ngIf="puedeEnviar()"
+            class="boton boton-primario"
+            [disabled]="procesando"
+            (click)="cambiarEstado('EN_REVISION')"
+          >
+            Enviar a revisión
+          </button>
+
+          <button
+            *ngIf="puedeAnular()"
+            class="boton boton-peligro"
+            [disabled]="procesando"
+            (click)="cambiarEstado('ANULADA')"
+          >
+            Anular
+          </button>
+
+          <button
+            *ngIf="puedeAprobarORechazar()"
+            class="boton boton-exito"
+            [disabled]="procesando"
+            (click)="cambiarEstado('APROBADA')"
+          >
+            Aprobar
+          </button>
+
+          <button
+            *ngIf="puedeAprobarORechazar()"
+            class="boton boton-peligro"
+            [disabled]="procesando"
+            (click)="cambiarEstado('RECHAZADA')"
+          >
+            Rechazar
+          </button>
+
+          <button
+            *ngIf="puedePagar()"
+            class="boton boton-exito"
+            [disabled]="procesando"
+            (click)="cambiarEstado('PAGADA')"
+          >
+            Marcar como pagada
+          </button>
+
+          <button
+            *ngIf="puedeReabrir()"
+            class="boton boton-primario"
+            [disabled]="procesando"
+            (click)="cambiarEstado('BORRADOR')"
+          >
+            Reabrir
+          </button>
+        </div>
+      </div>
+
+      <p
+        *ngIf="
+          !puedeEnviar() &&
+          !puedeAnular() &&
+          !puedeAprobarORechazar() &&
+          !puedePagar() &&
+          !puedeReabrir()
+        "
+      >
+        No hay acciones disponibles para este estado y rol.
+      </p>
+    </article>
+  </div>
+
+  <article class="tarjeta historial">
+    <h2>Historial de transiciones</h2>
+
+    <p *ngIf="historial.length === 0">
+      No existen eventos registrados.
+    </p>
+
+    <div class="tabla-contenedor" *ngIf="historial.length > 0">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Estado origen</th>
+            <th>Estado destino</th>
+            <th>Usuario</th>
+            <th>Comentario</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let evento of historial">
+            <td>{{ evento.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ evento.estadoOrigen }}</td>
+            <td>{{ evento.estadoDestino }}</td>
+            <td>{{ evento.usuario }}</td>
+            <td>{{ evento.comentario || '-' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>
+
+<p *ngIf="cargando">
+  Cargando detalle...
+</p>

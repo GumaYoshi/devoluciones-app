@@ -1,0 +1,56 @@
+<header
+  *ngIf="authService.autenticado()"
+  class="navbar"
+>
+  <div class="navbar-contenido">
+    <a
+      routerLink="/solicitudes"
+      class="marca"
+    >
+      DevolucionesApp
+    </a>
+
+    <nav class="navegacion">
+      <a
+        routerLink="/solicitudes"
+        routerLinkActive="activo"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Solicitudes
+      </a>
+
+      <a
+        routerLink="/solicitudes/nueva"
+        routerLinkActive="activo"
+      >
+        Nueva solicitud
+      </a>
+
+      <a
+        routerLink="/cargas"
+        routerLinkActive="activo"
+      >
+        Carga masiva
+      </a>
+    </nav>
+
+    <div class="usuario">
+      <div>
+        <strong>
+          {{ authService.usuario()?.username }}
+        </strong>
+
+        <small>
+          {{ authService.usuario()?.rol }}
+        </small>
+      </div>
+
+      <button
+        type="button"
+        (click)="cerrarSesion()"
+      >
+        Salir
+      </button>
+    </div>
+  </div>
+</header>

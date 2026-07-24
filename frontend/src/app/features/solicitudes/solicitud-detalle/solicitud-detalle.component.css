@@ -1,0 +1,58 @@
+.encabezado-pagina p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.acciones-superiores,
+.acciones-estado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.datos div {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.datos dt {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.datos dd {
+  margin: 4px 0 0;
+  font-weight: 600;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0 16px;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+}
+
+.historial {
+  margin-top: 20px;
+}
+
+@media (max-width: 800px) {
+  .grid,
+  .datos {
+    grid-template-columns: 1fr;
+  }
+}
