@@ -219,6 +219,33 @@ public class Solicitud {
         // Requerido por JPA
     }
 
+    public Solicitud(
+            String folio,
+            String rutCliente,
+            String nombreCliente,
+            BigDecimal monto,
+            Moneda moneda,
+            String bancoDestino,
+            String cuentaDestino,
+            String referenciaBanco,
+            OrigenSolicitud origen,
+            String creadaPor
+    ) {
+        this.folio = folio;
+        this.rutCliente = rutCliente;
+        this.nombreCliente = nombreCliente;
+        this.monto = monto;
+        this.moneda = moneda;
+        this.bancoDestino = bancoDestino;
+        this.cuentaDestino = cuentaDestino;
+        this.referenciaBanco = referenciaBanco;
+        this.origen = origen;
+        this.creadaPor = creadaPor;
+
+        this.estado = EstadoSolicitud.BORRADOR;
+        this.cantidadReaperturas = 0;
+    }
+
     @PrePersist
     void prePersist() {
         LocalDateTime ahora = LocalDateTime.now();
