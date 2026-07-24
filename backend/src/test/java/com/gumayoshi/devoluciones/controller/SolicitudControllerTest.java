@@ -18,9 +18,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.never;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -39,9 +39,8 @@ class SolicitudControllerTest {
     @Test
     void debeCrearSolicitudYRetornar201() throws Exception {
 
-        // Arrange
         CrearSolicitudRequest request = new CrearSolicitudRequest(
-                "FOL-001",
+                "DEV-2026-000001",
                 "12.345.678-5",
                 "Juan Pérez",
                 new BigDecimal("15000.00"),
@@ -55,7 +54,7 @@ class SolicitudControllerTest {
 
         SolicitudResponse response = new SolicitudResponse(
                 1L,
-                "FOL-001",
+                "DEV-2026-000001",
                 "12.345.678-5",
                 "Juan Pérez",
                 new BigDecimal("15000.00"),
@@ -74,16 +73,15 @@ class SolicitudControllerTest {
         when(solicitudService.crearSolicitud(any(CrearSolicitudRequest.class)))
                 .thenReturn(response);
 
-        // Act + Assert
         mockMvc.perform(
-                        post("/api/solicitudes")
+                        post("/api/v1/solicitudes")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonMapper.writeValueAsString(request))
                 )
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.folio").value("FOL-001"))
+                .andExpect(jsonPath("$.folio").value("DEV-2026-000001"))
                 .andExpect(jsonPath("$.rutCliente").value("12.345.678-5"))
                 .andExpect(jsonPath("$.nombreCliente").value("Juan Pérez"))
                 .andExpect(jsonPath("$.monto").value(15000.00))
@@ -100,7 +98,7 @@ class SolicitudControllerTest {
     void debeRetornar400CuandoElRutEsInvalido() throws Exception {
 
         CrearSolicitudRequest request = new CrearSolicitudRequest(
-                "FOL-002",
+                "DEV-2026-000002",
                 "12.345.678-9",
                 "Juan Pérez",
                 new BigDecimal("15000.00"),
@@ -113,7 +111,7 @@ class SolicitudControllerTest {
         );
 
         mockMvc.perform(
-                        post("/api/solicitudes")
+                        post("/api/v1/solicitudes")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonMapper.writeValueAsString(request))
                 )

@@ -8,6 +8,5 @@ import java.util.List;
 public interface EventoSolicitudRepository
         extends JpaRepository<EventoSolicitud, Long> {
 
-    List<EventoSolicitud>
-    findBySolicitudIdOrderByFechaAsc(Long solicitudId);
+    List<EventoSolicitud> findBySolicitudIdOrderByFechaAsc(Long solicitudId);
 }
